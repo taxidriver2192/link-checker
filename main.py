@@ -2,6 +2,9 @@ import requests
 from tqdm import tqdm
 
 def check_for_php_error(url):
+    """
+    Check if response code is not 200
+    """
     headers = {
         "x-borsen-native": "1"
     }
@@ -33,9 +36,9 @@ def main():
         with open("error_links.txt", "w") as file:
             for url in error_urls:
                 file.write(url + "\n")
-        print(f"Found {len(error_urls)} URLs with PHP errors. Check 'error_links.txt' for details.")
+        print(f"Found {len(error_urls)} URLs with not 200 http errors. Check 'error_links.txt' for details.")
     else:
-        print("No PHP errors found in the provided URLs.")
+        print("All links are valid.")
 
 if __name__ == "__main__":
     main()
