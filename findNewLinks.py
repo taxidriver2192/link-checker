@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse, urlunparse
 
 def extract_internal_links(url, domain):
     """
@@ -12,14 +13,16 @@ def extract_internal_links(url, domain):
 
         for a_tag in soup.find_all('a', href=True):
             link = a_tag['href']
-            links.add(link)
+            parsed_link = urlparse(link)
+            clean_link = urlunparse((parsed_link.scheme, parsed_link.netloc, parsed_link.path, "", "", ""))
+            links.add(clean_link)
 
         return links
     except requests.RequestException:
         return set()
 
 def main():
-    base_url = "https://siko.borops.net"
+    base_url = "https://lusc.borops.net/"
     all_links = set()
 
     with open("test-links-atikler.txt", "r") as file:
