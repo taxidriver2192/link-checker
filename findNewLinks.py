@@ -19,24 +19,21 @@ def extract_internal_links(url, domain):
         return set()
 
 def main():
-    base_url = "https://siko.borops.net"
+    base_url = "https://lusc.borops.net/nyheder/side/"
     all_links = set()
 
-    with open("test-links-atikler.txt", "r") as file:
-        links_to_visit = [link.strip() for link in file.readlines()]
-
-    all_links.update(links_to_visit)
-
-    for link in links_to_visit:
-        full_url = base_url + link
+    for page_number in range(1, 11):  # Iterate over pages 1 to 10
+        full_url = base_url + str(page_number)
         found_links = extract_internal_links(full_url, base_url)
+        new_links = found_links - all_links  # Determine the new links found on this page
         all_links.update(found_links)
 
-    with open("lot-of-links.txt", "w") as file:
-        for link in all_links:
-            file.write(link + "\n")
+        print(f"Found {len(new_links)} new links on page {page_number}.")
+        with open(f"links-page-{page_number}.txt", "w") as file:
+            for link in new_links:
+                file.write(link + "\n")
 
-    print(f"Found {len(all_links)} unique internal links. Check 'lot-of-links.txt' for details.")
+    print(f"Found {len(all_links)} unique internal links in total.")
 
 if __name__ == "__main__":
     main()
