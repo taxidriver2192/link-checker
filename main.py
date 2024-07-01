@@ -24,11 +24,11 @@ def main():
     base_url = "https://lusc.borops.net"
     error_urls = []
 
-    with open("test-links.txt", "r") as file:
+    with open("all-unique-links.txt", "r") as file:
         links = [link.strip() for link in file.readlines()]
 
     for link in tqdm(links, desc="Checking URLs"):
-        mst = "eyJpdiI6IkZadFhEMm9FMj5YjllVWExNUthOVE9PSIsInZhbHVlIjoiTG1FcUxGMzUrV2toWkVhOUJ0M0ozbWcxbitLb2xUWkxDK3ZSaXkyY3BkSzl4MWxRcjJLc1ZxM0QrVnlDaGtzTCIsIm1hYyI6IjQ3MmE0ZWQ4MTJlMjA1NWZjMWMyNTY1YzZhZDRhNTU0ZjU3NDE5MTI5MjAxMTVmMDlkZDE5Y2ZjODExOTljMjEiLCJ0YWciOiIifQ=="
+        mst = "eyJpdiI6IlJ4aEVOMFdoOFcyeUI4SFhRMXpDYXc9PSIsInZhbHVlIjoibzFVYnRLODEwR0pGQzJpTDBRb2s3aWplM1J4MjVOVldubXkyMndxU3pOTnJ3L3B5djRISWE0WkJlNE9sVDFqZCIsIm1hYyI6ImI4ZjViMzhiMTBhMzM2MmE0NjY2N2MxODVjYzJmMWFlMTViOTNmZTljZjQyMDAzZmRjNTM1M2UyOTI3N2QxMDYiLCJ0YWciOiIifQ=="
         full_url = base_url + link + "?mst=" + mst
         if check_for_php_error(full_url):
             error_urls.append(full_url)

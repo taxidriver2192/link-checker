@@ -25,15 +25,14 @@ def main():
     for page_number in range(1, 11):  # Iterate over pages 1 to 10
         full_url = base_url + str(page_number)
         found_links = extract_internal_links(full_url, base_url)
-        new_links = found_links - all_links  # Determine the new links found on this page
-        all_links.update(found_links)
-
-        print(f"Found {len(new_links)} new links on page {page_number}.")
-        with open(f"links-page-{page_number}.txt", "w") as file:
-            for link in new_links:
-                file.write(link + "\n")
+        all_links.update(found_links)  # Update all_links with new found links
+        print(f"Processed page {page_number}.")
 
     print(f"Found {len(all_links)} unique internal links in total.")
 
+    # Write all unique links to a single file
+    with open("all-unique-links.txt", "w") as file:
+        for link in all_links:
+            file.write(link + "\n")
 if __name__ == "__main__":
     main()
